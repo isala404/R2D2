@@ -15,16 +15,26 @@ class Driver(object):
     def __init__(self):
         self.gpio = __import__('RPi.GPIO')
         self.gpio = self.gpio.GPIO
+
+        # Motor controller l298n
         self.enable_L = 36
         self.motorL_1 = 33
         self.motorL_2 = 35
         self.enable_R = 37
         self.motorR_1 = 38
         self.motorR_2 = 40
+
+        # 2 LED
         self.led = 29
         self.led2 = 31
+
+        # Servo motor (Arm)
         self.ser1 = 7
         self.ser2 = 11
+
+        # hc-sr04 ultrasonic distance sensor
+        self.TRIG = 12
+        self.ECHO = 13
 
         self.gpio.setwarnings(False)
         self.gpio.setmode(self.gpio.BOARD)
@@ -51,9 +61,6 @@ class Driver(object):
 
         self.gpio.output(self.led, True)
         self.gpio.output(self.led2, True)
-
-        self.TRIG = 12
-        self.ECHO = 13
 
         self.gpio.setup(self.TRIG, self.gpio.OUT)
         self.gpio.setup(self.ECHO, self.gpio.IN)
