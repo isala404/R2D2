@@ -5,83 +5,59 @@ import R2D2
 from PC.getkeys import key_check
 
 
-def keys_to_output(keys):
-    '''
-    Source - https://github.com/Sentdex/pygta5
-    Convert keys to a ...multi-hot... array
-     0  1  2  3  4   5   6   7    8
-    [W, S, A, D, WA, WD, SA, SD, NOKEY] boolean values.
-    '''
+def getMove(keys):
+    output = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     if 'W' in keys:
-        output = w
+        output[0] = 1
     elif 'A' in keys:
-        output = a
+        output[1] = 1
     elif 'D' in keys:
-        output = d
-    elif 'I' in keys:
-        output = i
-    elif 'J' in keys:
-        output = j
-    elif 'L' in keys:
-        output = l
-    elif 'K' in keys:
-        output = k
-    elif 'Y' in keys:
-        output = y
+        output[2] = 1
     elif 'S' in keys:
-        output = s
+        output[3] = 1
+    elif 'I' in keys:
+        output[4] = 1
+    elif 'J' in keys:
+        output[5] = 1
+    elif 'L' in keys:
+        output[6] = 1
+    elif 'K' in keys:
+        output[7] = 1
+    elif 'Y' in keys:
+        output[8] = 1
     elif 'G' in keys:
-        output = g
+        output[9] = 1
     else:
-        output = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+        output[10] = 1
     return output
 
+collectData = bool(R2D2.config('CollectData'))
+stream = R2D2.Stream(str(R2D2.config('IP')), int(R2D2.config('Port')), streamer=0)
+LF = R2D2.LineFollower(collectData=collectData)
 
-w = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-a = [0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-d = [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-i = [0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-j = [0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-l = [0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
-k = [0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-y = [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-s = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
-g = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-
-loaded = 0
-
-stream = R2D2.Stream('192.168.1.100', 5000, streamer=0)
-IM = R2D2.ImageProcessor()
-AI = R2D2.AI()
+if not collectData:
+    AI = R2D2.AI()
 
 last_time = time.time()
-
-line1 = []
-line2 = []
-line3 = []
-line4 = []
-line5 = []
-line6 = []
-line7 = []
-
+line1 = [];line2 = [];line3 = [];line4 = [];line5 = [];line6 = [];line7 = []
 paused = True
-collectData = False
+loaded = 0
 
 for _ in range(5):
     keys = key_check()
-    move = keys_to_output(keys)
+    move = getMove(keys)
 
 while 1:
     try:
         frame = stream.Receive(1000000)
-        frame, img, display, sensorArray1, sensorArray2, sensorArray3, sensorArray4 = IM.getProcessedImage(frame)
+        img, display, sensorArray1, sensorArray2, sensorArray3, sensorArray4 = LF.getProcessedImage(frame)
         cv2.imshow('frame', frame)
         cv2.imshow('display', display)
         cv2.imshow('Processed Image', img)
 
         if collectData:
             keys = key_check()
-            move = keys_to_output(keys)
+            move = getMove(keys)
             stream.Send(move)
             if 'G' in keys:
                 if loaded:
@@ -91,7 +67,7 @@ while 1:
                     loaded = 1
                     time.sleep(1)
 
-            if np.count_nonzero(move[:8]) != 0 and not paused:
+            if np.count_nonzero(move[:10]) != 0 and not paused:
                 if not line1:
                     line1 = sensorArray1
                     line2 = sensorArray2
@@ -109,7 +85,7 @@ while 1:
                     line2 = sensorArray2
                     line1 = sensorArray1
 
-                AI.collectData(np.argmax(move[:8]), str(loaded), line1, line2, line3, line4, line5, line6, line7)
+                LF.collectData(np.argmax(move[:10]), str(loaded), line1, line2, line3, line4, line5, line6, line7)
 
             if 'P' in keys:
                 if paused:
