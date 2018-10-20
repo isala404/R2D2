@@ -18,7 +18,6 @@ except:
 LF = R2D2.LineFollower(collectData=True)
 AI = R2D2.AI()
 
-
 try:
     while True:
         frame = camara.getFrame('COLOR')
