@@ -4,7 +4,6 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 from sklearn.neighbors.nearest_centroid import NearestCentroid
 
-
 def generateSamples():
     f = open('data.csv', 'w')
     f.write(
@@ -41,7 +40,6 @@ def generateSamples():
 
     f.close()
 
-
 def train():
     df = pd.read_csv('data.csv')
     df.drop(['id'], 1, inplace=True)
@@ -58,6 +56,5 @@ def train():
     example_measures = example_measures.reshape(1, -1)
     prediction = clf.predict(example_measures)
     print(prediction)
-
 
 train()
