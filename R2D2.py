@@ -10,7 +10,6 @@ from sklearn.externals import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 
-
 def config(sub, section='R2D2'):
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     config = configparser.ConfigParser()
