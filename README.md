@@ -1,6 +1,6 @@
 ![GitHub issues](https://img.shields.io/github/issues/mrsupiri/r2d2)
 [![codebeat badge](https://codebeat.co/badges/678e76b0-303f-4f75-ab50-31759da05ed8)](https://codebeat.co/projects/github-com-mrsupiri-r2d2-master)
-![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/github/R2D2)
+[![Requirements Status](https://requires.io/github/mrsupiri/R2D2/requirements.svg?branch=master)](https://requires.io/github/mrsupiri/R2D2/requirements/?branch=master)
 ![GitHub license](https://img.shields.io/github/license/mrsupiri/R2D2)
 ![Platform](https://img.shields.io/badge/platform-Raspberry%20Pi-brightgreen)
 [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/mrsupiri)
