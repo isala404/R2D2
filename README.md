@@ -26,6 +26,7 @@ pip install -r requirements.txt
 - Numpy
 - OpenCV
 - Pandas
+- Arudino
 - Sklearn
 - Socket IO
 
