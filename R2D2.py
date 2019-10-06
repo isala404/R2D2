@@ -66,7 +66,7 @@ class Driver(object):
         self.gpio.output(self.motorR_1, False)
         self.gpio.output(self.motorR_2, False)
 
-        self.gpio.output(self.led, True)
+        self.gpio.output(self.led, False)
         self.gpio.output(self.led2, True)
 
         self.gpio.setup(self.TRIG, self.gpio.OUT)
