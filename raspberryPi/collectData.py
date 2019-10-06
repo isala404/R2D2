@@ -11,7 +11,7 @@ collect_data = bool(R2D2.config('CollectData'))
 try:
     last_time = time.time()
     while True:
-        frame = camara.getFrame('COLOR')
+        frame = camara.getFrame('COLOUR')
         stream.Send(frame)
         if collect_data:
             move = stream.Receive(5200)
