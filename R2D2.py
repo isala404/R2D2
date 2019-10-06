@@ -183,7 +183,7 @@ class Driver(object):
         self.servoStop()
 
     def getDistance(self):
-        self.gpio.output(self.TRIG, True)
+        self.gpio.output(self.TRIG, false)
         time.sleep(0.00001)
         self.gpio.output(self.TRIG, False)
 
