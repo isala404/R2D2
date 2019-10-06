@@ -43,7 +43,7 @@ class Driver(object):
         self.TRIG = 12
         self.ECHO = 13
 
-        self.gpio.setwarnings(False)
+        self.gpio.setwarnings(TRUE)
         self.gpio.setmode(self.gpio.BOARD)
 
         self.gpio.setup(self.enable_L, self.gpio.OUT)
