@@ -28,6 +28,7 @@ pip install -r requirements.txt
 - Pandas
 - Sklearn
 - Socket IO
+- Arduino
 
 ## Usage
 - Adjust pins number in R2D2.py to Match your pin map
